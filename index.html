@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Credible – Compare Real Loan Rates in Minutes</title>
+  <meta name="description" content="Compare personalized loan rates from 50+ top lenders in minutes. No credit score impact. Free. Fast. Trusted by 5M+ Americans." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- ===== PAGE LOADER ===== -->
+<div id="loader" class="loader">
+  <div class="loader-inner">
+    <div class="loader-logo">
+      <div class="loader-icon">&#10003;</div>
+      <span>credible</span>
+    </div>
+    <div class="loader-track"><div class="loader-bar"></div></div>
+    <p class="loader-text">Finding the best rates for you…</p>
+  </div>
+</div>
+
+<!-- ===== ANNOUNCEMENT BAR ===== -->
+<div class="announcement-bar" id="announcementBar">
+  <div class="container announcement-bar__inner">
+    <span>🎉 <strong>Limited Time:</strong> Rates as low as 4.99% APR — Compare 50+ lenders in 2 minutes.</span>
+    <button class="announcement-bar__close" id="closeAnnouncement" aria-label="Close">&#10005;</button>
+  </div>
+</div>
+
+<!-- ===== HEADER ===== -->
+<header class="header" id="header">
+  <nav class="nav container">
+
+    <a href="#" class="logo">
+      <div class="logo-icon">&#10003;</div>
+      <span class="logo-text">credible</span>
+    </a>
+
+    <div class="nav-menu" id="navMenu">
+      <ul class="nav-list">
+
+        <li class="nav-item has-dropdown">
+          <button class="nav-link">Student Loans <span class="caret">&#8964;</span></button>
+          <div class="dropdown">
+            <a href="#" class="dd-item" data-goto="products">
+              <span class="dd-emoji">&#127891;</span>
+              <div>
+                <strong>Student Loan Refinancing</strong>
+                <p>Lower your rate &amp; save thousands</p>
+              </div>
+            </a>
+            <a href="#" class="dd-item" data-goto="products">
+              <span class="dd-emoji">&#128218;</span>
+              <div>
+                <strong>Private Student Loans</strong>
+                <p>Fund your education affordably</p>
+              </div>
+            </a>
+            <a href="#" class="dd-item" data-goto="products">
+              <span class="dd-emoji">&#128196;</span>
+              <div>
+                <strong>Parent PLUS Refinancing</strong>
+                <p>Help your child reduce loan costs</p>
+              </div>
+            </a>
+          </div>
+        </li>
+
+        <li class="nav-item has-dropdown">
+          <button class="nav-link">Personal Loans <span class="caret">&#8964;</span></button>
+          <div class="dropdown">
+            <a href="#" class="dd-item" data-goto="products">
+              <span class="dd-emoji">&#128179;</span>
+              <div>
+                <strong>Personal Loans</strong>
+                <p>Get funds for any purpose fast</p>
+              </div>
+            </a>
+            <a href="#" class="dd-item" data-goto="products">
+              <span class="dd-emoji">&#128260;</span>
+              <div>
+                <strong>Debt Consolidation</strong>
+                <p>Combine &amp; simplify your payments</p>
+              </div>
+            </a>
+          </div>
+        </li>
+
+        <li class="nav-item has-dropdown">
+          <button class="nav-link">Home Loans <span class="caret">&#8964;</span></button>
+          <div class="dropdown">
+            <a href="#" class="dd-item" data-goto="products">
+              <span class="dd-emoji">&#127968;</span>
+              <div>
+                <strong>Mortgage</strong>
+                <p>Buy your dream home</p>
+              </div>
+            </a>
+            <a href="#" class="dd-item" data-goto="products">
+              <span class="dd-emoji">&#128273;</span>
+              <div>
+                <strong>Mortgage Refinancing</strong>
+                <p>Lower your current monthly payment</p>
+              </div>
+            </a>
+            <a href="#" class="dd-item" data-goto="products">
+              <span class="dd-emoji">&#127959;</span>
+              <div>
+                <strong>Home Equity Loans</strong>
+                <p>Tap into your home's value</p>
+              </div>
+            </a>
+          </div>
+        </li>
+
+        <li class="nav-item has-dropdown">
+          <button class="nav-link">Insurance <span class="caret">&#8964;</span></button>
+          <div class="dropdown">
+            <a href="#" class="dd-item" data-goto="products">
+              <span class="dd-emoji">&#128737;</span>
+              <div>
+                <strong>Home Insurance</strong>
+                <p>Protect what matters most</p>
+              </div>
+            </a>
+            <a href="#" class="dd-item" data-goto="products">
+              <span class="dd-emoji">&#128664;</span>
+              <div>
+                <strong>Auto Insurance</strong>
+                <p>Compare top auto policies</p>
+              </div>
+            </a>
+          </div>
+        </li>
+
+        <li class="nav-item">
+          <a href="#faq" class="nav-link" data-goto="faq">Resources</a>
+        </li>
+
+      </ul>
+    </div>
+
+    <div class="nav-actions">
+      <button class="btn btn-ghost" id="loginBtn">Log In</button>
+      <button class="btn btn-primary btn-sm" id="getStartedBtn">Get Started</button>
+    </div>
+
+    <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+
+  </nav>
+</header>
+
+<main>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="hero">
+    <div class="hero-bg">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
+      <div class="grid-overlay"></div>
+    </div>
+
+    <div class="container hero-container">
+
+      <!-- Left Content -->
+      <div class="hero-content" data-aos="fade-up">
+        <div class="hero-badge">
+          <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+          <span>Rated #1 Loan Marketplace — Forbes 2025</span>
+        </div>
+        <h1 class="hero-title">
+          Find Your <span class="gradient-text">Best Rate</span><br/>
+          in Under 2 Minutes
+        </h1>
+        <p class="hero-sub">
+          Compare personalized offers from 50+ top lenders side by side —
+          without any impact on your credit score. 100% free.
+        </p>
+        <div class="hero-trust-pills">
+          <span class="trust-pill"><span class="tp-check">&#10003;</span> No credit impact</span>
+          <span class="trust-pill"><span class="tp-check">&#10003;</span> Real rates, not estimates</span>
+          <span class="trust-pill"><span class="tp-check">&#10003;</span> 100% free forever</span>
+        </div>
+        <div class="hero-press">
+          <span>As seen in:</span>
+          <span class="press-logo">Forbes</span>
+          <span class="press-logo">WSJ</span>
+          <span class="press-logo">NYT</span>
+          <span class="press-logo">CNN</span>
+          <span class="press-logo">CNBC</span>
+        </div>
+      </div>
+
+      <!-- Right Card -->
+      <div class="hero-card" data-aos="fade-left">
+        <div class="card-tabs" role="tablist">
+          <button class="card-tab active" role="tab" data-tab="personal">Personal Loan</button>
+          <button class="card-tab" role="tab" data-tab="student">Student Loan</button>
+          <button class="card-tab" role="tab" data-tab="mortgage">Mortgage</button>
+        </div>
+
+        <!-- Personal Loan Form -->
+        <form class="loan-form active" id="form-personal" data-type="personal" novalidate>
+          <div class="form-group">
+            <label class="form-label">Loan Purpose</label>
+            <select class="form-control" name="purpose" required>
+              <option value="">Select purpose…</option>
+              <option>Debt Consolidation</option>
+              <option>Home Improvement</option>
+              <option>Medical Expenses</option>
+              <option>Auto Purchase</option>
+              <option>Wedding</option>
+              <option>Vacation</option>
+              <option>Business Expenses</option>
+              <option>Moving Costs</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Loan Amount</label>
+              <div class="input-prefix">
+                <span>$</span>
+                <input type="number" class="form-control" name="amount" placeholder="10,000" min="1000" max="100000" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Loan Term</label>
+              <select class="form-control" name="term">
+                <option value="2">2 Years</option>
+                <option value="3" selected>3 Years</option>
+                <option value="5">5 Years</option>
+                <option value="7">7 Years</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Credit Score Range</label>
+            <select class="form-control" name="credit" required>
+              <option value="">Select range…</option>
+              <option value="excellent">Excellent (750+)</option>
+              <option value="good">Good (700–749)</option>
+              <option value="fair">Fair (650–699)</option>
+              <option value="poor">Poor (600–649)</option>
+              <option value="bad">Below 600</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Annual Income</label>
+            <div class="input-prefix">
+              <span>$</span>
+              <input type="number" class="form-control" name="income" placeholder="75,000" min="0" required />
+            </div>
+          </div>
+          <button type="submit" class="btn btn-cta btn-full">
+            Check My Rates — It's Free <span class="arrow">&#8594;</span>
+          </button>
+          <p class="form-note"><span class="note-check">&#10003;</span> Soft inquiry only — zero credit score impact</p>
+        </form>
+
+        <!-- Student Loan Form -->
+        <form class="loan-form" id="form-student" data-type="student" novalidate>
+          <div class="form-group">
+            <label class="form-label">Loan Type</label>
+            <select class="form-control" name="student_type" required>
+              <option value="">Select type…</option>
+              <option>Refinance Existing Loans</option>
+              <option>New Undergraduate Loan</option>
+              <option>New Graduate Loan</option>
+              <option>Parent PLUS Refinance</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Loan Balance</label>
+              <div class="input-prefix">
+                <span>$</span>
+                <input type="number" class="form-control" name="amount" placeholder="35,000" min="1000" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Degree</label>
+              <select class="form-control" name="degree">
+                <option value="">Select…</option>
+                <option>Bachelor's</option>
+                <option>Master's</option>
+                <option>Doctoral</option>
+                <option>Associate's</option>
+                <option>Certificate</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Employment Status</label>
+            <select class="form-control" name="employment" required>
+              <option value="">Select status…</option>
+              <option>Employed Full-Time</option>
+              <option>Self-Employed</option>
+              <option>Employed Part-Time</option>
+              <option>Currently a Student</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Annual Income</label>
+            <div class="input-prefix">
+              <span>$</span>
+              <input type="number" class="form-control" name="income" placeholder="55,000" min="0" required />
+            </div>
+          </div>
+          <button type="submit" class="btn btn-cta btn-full">
+            Compare Student Rates <span class="arrow">&#8594;</span>
+          </button>
+          <p class="form-note"><span class="note-check">&#10003;</span> Soft inquiry only — zero credit score impact</p>
+        </form>
+
+        <!-- Mortgage Form -->
+        <form class="loan-form" id="form-mortgage" data-type="mortgage" novalidate>
+          <div class="form-group">
+            <label class="form-label">Loan Purpose</label>
+            <select class="form-control" name="mortgage_type" required>
+              <option value="">Select purpose…</option>
+              <option>Purchase a Home</option>
+              <option>Refinance Existing Mortgage</option>
+              <option>Cash-Out Refinance</option>
+              <option>Home Equity Line of Credit</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Home Value</label>
+              <div class="input-prefix">
+                <span>$</span>
+                <input type="number" class="form-control" name="home_value" placeholder="400,000" min="50000" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Down Payment</label>
+              <div class="input-prefix">
+                <span>$</span>
+                <input type="number" class="form-control" name="down_payment" placeholder="80,000" min="0" required />
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Credit Score Range</label>
+            <select class="form-control" name="credit" required>
+              <option value="">Select range…</option>
+              <option value="excellent">Excellent (750+)</option>
+              <option value="good">Good (700–749)</option>
+              <option value="fair">Fair (650–699)</option>
+              <option value="poor">Poor (600–649)</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-cta btn-full">
+            Compare Mortgage Rates <span class="arrow">&#8594;</span>
+          </button>
+          <p class="form-note"><span class="note-check">&#10003;</span> Soft inquiry only — zero credit score impact</p>
+        </form>
+
+      </div><!-- /.hero-card -->
+    </div><!-- /.hero-container -->
+
+    <div class="hero-wave">
+      <svg viewBox="0 0 1440 70" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,35 C240,70 480,0 720,35 C960,70 1200,0 1440,35 L1440,70 L0,70 Z" fill="#ffffff"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ===== STATS ===== -->
+  <section class="stats-section" id="stats">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-card" data-aos="fade-up" data-aos-delay="0">
+          <div class="stat-num" data-count="5000000" data-format="compact" data-suffix="+">0</div>
+          <div class="stat-label">Americans Helped</div>
+        </div>
+        <div class="stat-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="stat-num" data-count="18750" data-format="currency" data-suffix="+">0</div>
+          <div class="stat-label">Average Savings Per User</div>
+        </div>
+        <div class="stat-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="stat-num" data-count="50" data-suffix="+">0</div>
+          <div class="stat-label">Partner Lenders</div>
+        </div>
+        <div class="stat-card" data-aos="fade-up" data-aos-delay="300">
+          <div class="stat-num" data-count="48" data-format="decimal" data-suffix="/5">0</div>
+          <div class="stat-label">Trustpilot Rating</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PRODUCTS ===== -->
+  <section class="products-section" id="products">
+    <div class="container">
+      <div class="section-header" data-aos="fade-up">
+        <span class="section-tag">Our Products</span>
+        <h2 class="section-title">Compare Rates Across Every Product</h2>
+        <p class="section-desc">One trusted platform for all your financial needs — from student loans to mortgages to insurance.</p>
+      </div>
+      <div class="products-grid">
+
+        <div class="product-card" data-aos="fade-up" data-aos-delay="0">
+          <div class="product-icon icon-blue">&#128179;</div>
+          <h3>Personal Loans</h3>
+          <p>Get $1,000–$100,000 for any purpose with flexible terms from top lenders nationwide.</p>
+          <div class="product-rate">From <strong>6.40% APR</strong></div>
+          <button class="product-cta" data-tab-target="personal" data-goto-hero>Compare Rates &#8594;</button>
+        </div>
+
+        <div class="product-card" data-aos="fade-up" data-aos-delay="80">
+          <div class="product-icon icon-green">&#127891;</div>
+          <h3>Student Loan Refi</h3>
+          <p>Refinance federal and private loans to a lower rate and save thousands over your repayment.</p>
+          <div class="product-rate">From <strong>4.99% APR</strong></div>
+          <button class="product-cta" data-tab-target="student" data-goto-hero>Compare Rates &#8594;</button>
+        </div>
+
+        <div class="product-card" data-aos="fade-up" data-aos-delay="160">
+          <div class="product-icon icon-purple">&#128218;</div>
+          <h3>Private Student Loans</h3>
+          <p>Cover tuition and living costs with competitive private loan options for undergrad and grad.</p>
+          <div class="product-rate">From <strong>3.99% APR</strong></div>
+          <button class="product-cta" data-tab-target="student" data-goto-hero>Compare Rates &#8594;</button>
+        </div>
+
+        <div class="product-card" data-aos="fade-up" data-aos-delay="240">
+          <div class="product-icon icon-orange">&#127968;</div>
+          <h3>Mortgage</h3>
+          <p>Find the best mortgage rates from America's top lenders for purchase or refinance.</p>
+          <div class="product-rate">From <strong>6.55% APR</strong></div>
+          <button class="product-cta" data-tab-target="mortgage" data-goto-hero>Compare Rates &#8594;</button>
+        </div>
+
+        <div class="product-card" data-aos="fade-up" data-aos-delay="320">
+          <div class="product-icon icon-teal">&#127959;</div>
+          <h3>Home Equity Loans</h3>
+          <p>Access your home's equity for renovations, debt payoff, or any major expense at low rates.</p>
+          <div class="product-rate">From <strong>7.20% APR</strong></div>
+          <button class="product-cta" data-tab-target="mortgage" data-goto-hero>Compare Rates &#8594;</button>
+        </div>
+
+        <div class="product-card" data-aos="fade-up" data-aos-delay="400">
+          <div class="product-icon icon-red">&#128737;</div>
+          <h3>Home &amp; Auto Insurance</h3>
+          <p>Compare quotes from leading insurance providers and find the best coverage for less.</p>
+          <div class="product-rate">Save up to <strong>$500/year</strong></div>
+          <button class="product-cta" data-tab-target="personal" data-goto-hero>Get Quotes &#8594;</button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== HOW IT WORKS ===== -->
+  <section class="how-section" id="how-it-works">
+    <div class="container">
+      <div class="section-header" data-aos="fade-up">
+        <span class="section-tag">Simple Process</span>
+        <h2 class="section-title">Get Your Best Rate in 3 Steps</h2>
+        <p class="section-desc">We make comparing rates fast, transparent, and completely free — no hidden catches.</p>
+      </div>
+      <div class="steps-container">
+        <div class="step-card" data-aos="fade-up" data-aos-delay="0">
+          <div class="step-number">01</div>
+          <div class="step-icon">&#128221;</div>
+          <h3>Share Your Info</h3>
+          <p>Fill out a quick, secure 2-minute form. No Social Security Number required to see your rates.</p>
+        </div>
+        <div class="step-arrow" data-aos="fade-up" data-aos-delay="80">&#8594;</div>
+        <div class="step-card" data-aos="fade-up" data-aos-delay="160">
+          <div class="step-number">02</div>
+          <div class="step-icon">&#128202;</div>
+          <h3>Compare Real Rates</h3>
+          <p>Instantly view personalized pre-qualified offers from multiple lenders — side by side, no hard pull.</p>
+        </div>
+        <div class="step-arrow" data-aos="fade-up" data-aos-delay="240">&#8594;</div>
+        <div class="step-card" data-aos="fade-up" data-aos-delay="320">
+          <div class="step-number">03</div>
+          <div class="step-icon">&#128176;</div>
+          <h3>Get Funded</h3>
+          <p>Pick the best offer, complete your application with the lender, and receive funds in 24–48 hours.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== WHY CREDIBLE ===== -->
+  <section class="why-section" id="why-credible">
+    <div class="container">
+      <div class="why-grid">
+
+        <div class="why-content" data-aos="fade-right">
+          <span class="section-tag">Why Choose Credible</span>
+          <h2 class="section-title">We Work for You — Not the Lenders</h2>
+          <p class="section-desc">Credible is a fully independent marketplace. We compare every lender objectively so you always see the best deals available to you — guaranteed.</p>
+          <div class="features-list">
+            <div class="feature-item">
+              <div class="feature-icon">&#128274;</div>
+              <div class="feature-body">
+                <h4>Zero Credit Score Impact</h4>
+                <p>We use soft inquiries only — compare as many times as you like without affecting your score.</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon">&#127381;</div>
+              <div class="feature-body">
+                <h4>Real Rates, Not Estimates</h4>
+                <p>See actual pre-qualified rates personalized to you — not generic advertised teaser rates.</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon">&#129309;</div>
+              <div class="feature-body">
+                <h4>Expert Human Support</h4>
+                <p>Licensed loan officers available 7 days a week to guide you — at absolutely no charge.</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon">&#127358;</div>
+              <div class="feature-body">
+                <h4>Always 100% Free</h4>
+                <p>Our service costs borrowers nothing. We earn a small referral fee from lenders when you close.</p>
+              </div>
+            </div>
+          </div>
+          <button class="btn btn-primary btn-lg" onclick="document.getElementById('hero').scrollIntoView({behavior:'smooth'})">Start Comparing Rates</button>
+        </div>
+
+        <div class="why-visual" data-aos="fade-left">
+          <div class="offer-card">
+            <div class="offer-card-header">
+              <span class="offer-card-title">Your Personalized Offers</span>
+              <span class="offer-badge">3 Matches Found</span>
+            </div>
+            <div class="offer-row offer-row--best">
+              <div class="offer-best-label">&#11088; Best Rate</div>
+              <div class="offer-lender">
+                <div class="lender-av av-blue">SF</div>
+                <div>
+                  <strong>SoFi Bank</strong>
+                  <span>Personal Loan · 5yr Fixed</span>
+                </div>
+              </div>
+              <div class="offer-rates">
+                <div>
+                  <div class="rate-primary">7.49%</div>
+                  <small>Fixed APR</small>
+                </div>
+                <div>
+                  <div class="rate-primary">$312</div>
+                  <small>/ month</small>
+                </div>
+              </div>
+              <button class="btn btn-primary btn-xs">Select</button>
+            </div>
+            <div class="offer-row">
+              <div class="offer-lender">
+                <div class="lender-av av-green">LT</div>
+                <div>
+                  <strong>LightStream</strong>
+                  <span>Personal Loan · 5yr Fixed</span>
+                </div>
+              </div>
+              <div class="offer-rates">
+                <div>
+                  <div class="rate-secondary">9.99%</div>
+                  <small>Fixed APR</small>
+                </div>
+                <div>
+                  <div class="rate-secondary">$347</div>
+                  <small>/ month</small>
+                </div>
+              </div>
+              <button class="btn btn-outline btn-xs">View</button>
+            </div>
+            <div class="offer-row">
+              <div class="offer-lender">
+                <div class="lender-av av-purple">MK</div>
+                <div>
+                  <strong>Marcus by GS</strong>
+                  <span>Personal Loan · 5yr Fixed</span>
+                </div>
+              </div>
+              <div class="offer-rates">
+                <div>
+                  <div class="rate-secondary">11.24%</div>
+                  <small>Fixed APR</small>
+                </div>
+                <div>
+                  <div class="rate-secondary">$368</div>
+                  <small>/ month</small>
+                </div>
+              </div>
+              <button class="btn btn-outline btn-xs">View</button>
+            </div>
+            <p class="offer-card-note">&#10003; Rates checked without impacting your credit score</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== LENDERS TICKER ===== -->
+  <section class="lenders-section" id="lenders">
+    <div class="container">
+      <div class="section-header" data-aos="fade-up">
+        <span class="section-tag">Our Partners</span>
+        <h2 class="section-title">Trusted by 50+ Leading Lenders</h2>
+        <p class="section-desc">We partner with America's top financial institutions to bring you the most competitive rates available.</p>
+      </div>
+    </div>
+    <div class="ticker-wrap">
+      <div class="ticker-track" id="tickerTrack">
+        <span class="ticker-item">SoFi</span>
+        <span class="ticker-item">Marcus</span>
+        <span class="ticker-item">LightStream</span>
+        <span class="ticker-item">Discover</span>
+        <span class="ticker-item">Earnest</span>
+        <span class="ticker-item">Citizens Bank</span>
+        <span class="ticker-item">Laurel Road</span>
+        <span class="ticker-item">ELFI</span>
+        <span class="ticker-item">Wells Fargo</span>
+        <span class="ticker-item">Rocket Mortgage</span>
+        <span class="ticker-item">Better.com</span>
+        <span class="ticker-item">Ally Bank</span>
+        <span class="ticker-item">Upgrade</span>
+        <span class="ticker-item">Upstart</span>
+        <span class="ticker-item">Best Egg</span>
+        <span class="ticker-item">loanDepot</span>
+        <span class="ticker-item">NaviRefi</span>
+        <span class="ticker-item">Splash Financial</span>
+        <!-- duplicate for seamless loop -->
+        <span class="ticker-item">SoFi</span>
+        <span class="ticker-item">Marcus</span>
+        <span class="ticker-item">LightStream</span>
+        <span class="ticker-item">Discover</span>
+        <span class="ticker-item">Earnest</span>
+        <span class="ticker-item">Citizens Bank</span>
+        <span class="ticker-item">Laurel Road</span>
+        <span class="ticker-item">ELFI</span>
+        <span class="ticker-item">Wells Fargo</span>
+        <span class="ticker-item">Rocket Mortgage</span>
+        <span class="ticker-item">Better.com</span>
+        <span class="ticker-item">Ally Bank</span>
+        <span class="ticker-item">Upgrade</span>
+        <span class="ticker-item">Upstart</span>
+        <span class="ticker-item">Best Egg</span>
+        <span class="ticker-item">loanDepot</span>
+        <span class="ticker-item">NaviRefi</span>
+        <span class="ticker-item">Splash Financial</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TESTIMONIALS ===== -->
+  <section class="testimonials-section" id="testimonials">
+    <div class="container">
+      <div class="section-header" data-aos="fade-up">
+        <span class="section-tag section-tag-light">Customer Stories</span>
+        <h2 class="section-title section-title-light">Real People. Real Savings.</h2>
+        <p class="section-desc section-desc-light">Join millions of Americans who have found better financial products through Credible.</p>
+      </div>
+
+      <div class="testimonials-grid">
+        <div class="t-card" data-aos="fade-up" data-aos-delay="0">
+          <div class="t-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"I saved over $22,000 on my student loans by refinancing through Credible. The whole process took less than 15 minutes and I got real offers — not estimates. Absolutely incredible service."</p>
+          <div class="t-author">
+            <div class="t-avatar" style="background:#3B82F6">SM</div>
+            <div>
+              <strong>Sarah M.</strong>
+              <span>Student Loan Refinancing · Chicago, IL</span>
+            </div>
+          </div>
+          <div class="t-savings">Saved $22,400 over 10 years</div>
+        </div>
+
+        <div class="t-card t-card--featured" data-aos="fade-up" data-aos-delay="120">
+          <div class="t-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"Credible made finding a personal loan incredibly easy. I compared rates from 8 lenders at once without hurting my credit score — and got funded in just 2 days at 7.49% APR. Would use again in a heartbeat!"</p>
+          <div class="t-author">
+            <div class="t-avatar" style="background:#7C3AED">JK</div>
+            <div>
+              <strong>James K.</strong>
+              <span>Personal Loan · Austin, TX</span>
+            </div>
+          </div>
+          <div class="t-savings t-savings--light">Got 7.49% APR · Funded in 2 days</div>
+        </div>
+
+        <div class="t-card" data-aos="fade-up" data-aos-delay="240">
+          <div class="t-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"The mortgage comparison tool saved us months of research. We locked a rate 0.75% lower than our own bank offered — that's over $400 saved every single month. I tell everyone about Credible."</p>
+          <div class="t-author">
+            <div class="t-avatar" style="background:#059669">RT</div>
+            <div>
+              <strong>Rachel &amp; Liam T.</strong>
+              <span>Home Mortgage · Denver, CO</span>
+            </div>
+          </div>
+          <div class="t-savings">Saving $400/month on mortgage</div>
+        </div>
+      </div>
+
+      <div class="trust-bar">
+        <div class="trust-item" data-aos="fade-up" data-aos-delay="0">
+          <div class="trust-icon">&#11088;</div>
+          <div><strong>4.8 / 5 on Trustpilot</strong><span>12,000+ verified reviews</span></div>
+        </div>
+        <div class="trust-item" data-aos="fade-up" data-aos-delay="80">
+          <div class="trust-icon">&#127942;</div>
+          <div><strong>A+ BBB Rating</strong><span>Better Business Bureau</span></div>
+        </div>
+        <div class="trust-item" data-aos="fade-up" data-aos-delay="160">
+          <div class="trust-icon">&#128274;</div>
+          <div><strong>256-bit SSL Encryption</strong><span>Your data is always protected</span></div>
+        </div>
+        <div class="trust-item" data-aos="fade-up" data-aos-delay="240">
+          <div class="trust-icon">&#128240;</div>
+          <div><strong>Featured In Media</strong><span>Forbes · WSJ · NYT · CNN · CNBC</span></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== CALCULATOR ===== -->
+  <section class="calc-section" id="calculator">
+    <div class="container">
+      <div class="section-header" data-aos="fade-up">
+        <span class="section-tag">Free Tool</span>
+        <h2 class="section-title">Loan Payment Calculator</h2>
+        <p class="section-desc">Estimate your monthly payments before you apply. Adjust the values to see how rate and term affect your payment.</p>
+      </div>
+      <div class="calc-wrapper" data-aos="fade-up">
+        <div class="calc-inputs">
+          <div class="form-group">
+            <label class="form-label">Loan Amount</label>
+            <div class="input-prefix">
+              <span>$</span>
+              <input type="number" class="form-control" id="calcAmount" value="15000" min="1000" max="500000" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Annual Interest Rate (%)</label>
+            <input type="number" class="form-control" id="calcRate" value="8.5" min="1" max="36" step="0.1" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Loan Term (months)</label>
+            <input type="number" class="form-control" id="calcTerm" value="60" min="12" max="360" />
+          </div>
+          <button class="btn btn-primary btn-full" id="calcBtn">Calculate Payment</button>
+        </div>
+        <div class="calc-result" id="calcResult">
+          <div class="calc-result-inner">
+            <div class="calc-result-main">
+              <span class="calc-label">Monthly Payment</span>
+              <span class="calc-amount" id="calcMonthly">$308.11</span>
+            </div>
+            <div class="calc-result-details">
+              <div class="calc-detail">
+                <span>Total Interest</span>
+                <strong id="calcInterest">$3,486.60</strong>
+              </div>
+              <div class="calc-detail">
+                <span>Total Cost</span>
+                <strong id="calcTotal">$18,486.60</strong>
+              </div>
+            </div>
+            <button class="btn btn-cta btn-full" onclick="document.getElementById('hero').scrollIntoView({behavior:'smooth'})">
+              Get This Rate — Free &#8594;
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FAQ ===== -->
+  <section class="faq-section" id="faq">
+    <div class="container">
+      <div class="faq-layout">
+        <div class="faq-sidebar" data-aos="fade-right">
+          <span class="section-tag">FAQ</span>
+          <h2 class="section-title">Common Questions</h2>
+          <p class="section-desc">Have more questions? Our team is available 7 days a week.</p>
+          <button class="btn btn-primary" id="chatBtn">&#128172; Chat With Us</button>
+          <div class="faq-contact">
+            <a href="tel:18552588518" class="faq-contact-item">
+              <span>&#128222;</span>
+              <span>1-855-258-8518</span>
+            </a>
+            <a href="mailto:support@credible.com" class="faq-contact-item">
+              <span>&#9993;</span>
+              <span>support@credible.com</span>
+            </a>
+          </div>
+        </div>
+        <div class="faq-list" data-aos="fade-left">
+          <div class="faq-item">
+            <button class="faq-question">Does checking my rate affect my credit score? <span class="faq-icon">+</span></button>
+            <div class="faq-answer"><p>No. Credible uses a soft credit inquiry to generate your personalized rate offers, which has absolutely zero impact on your credit score. Only when you formally apply with a lender directly will a hard inquiry occur.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">How does Credible make money? <span class="faq-icon">+</span></button>
+            <div class="faq-answer"><p>Credible earns a referral fee from our lending partners when you successfully close a loan through our platform. This means our service is completely free for borrowers — we never charge you any fee or inflate your rate.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">Are the rates I see guaranteed? <span class="faq-icon">+</span></button>
+            <div class="faq-answer"><p>The rates shown are real, pre-qualified offers based on your actual credit profile — not generic teaser rates. Final rates are confirmed after a formal application. In the vast majority of cases, the rate you're shown is the rate you close with.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">How quickly can I get funded? <span class="faq-icon">+</span></button>
+            <div class="faq-answer"><p>It depends on the product. Personal loans: 1–3 business days after approval. Student loan refinancing: 2–4 weeks. Mortgages: typically 30–45 days. Some lenders offer same-day funding for personal loans.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">What credit score do I need to qualify? <span class="faq-icon">+</span></button>
+            <div class="faq-answer"><p>Requirements vary by lender and loan type. For personal loans, most lenders prefer 620+. Student loan refinancing and mortgages typically require 650+. Some of our lender partners specialize in borrowers with scores below these thresholds.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">Is my personal information secure? <span class="faq-icon">+</span></button>
+            <div class="faq-answer"><p>Absolutely. Credible uses 256-bit SSL encryption and bank-level security to protect all your personal and financial data. We never sell your information to third parties without your explicit consent.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">Can I apply if I have co-signer? <span class="faq-icon">+</span></button>
+            <div class="faq-answer"><p>Yes! Many of our lender partners accept co-signers, which can significantly improve your chances of approval and help you qualify for a lower rate — especially for student loans and personal loans.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA BANNER ===== -->
+  <section class="cta-section">
+    <div class="cta-orb cta-orb-1"></div>
+    <div class="cta-orb cta-orb-2"></div>
+    <div class="container">
+      <div class="cta-content" data-aos="fade-up">
+        <h2>Ready to Find Your Best Rate?</h2>
+        <p>Join 5 million+ Americans who have already discovered better loan options through Credible. Start in 2 minutes — no credit impact, no commitment.</p>
+        <div class="cta-actions">
+          <button class="btn btn-white btn-lg" onclick="document.getElementById('hero').scrollIntoView({behavior:'smooth'})">Check My Rates — Free</button>
+          <button class="btn btn-outline-white btn-lg" onclick="document.getElementById('how-it-works').scrollIntoView({behavior:'smooth'})">How It Works</button>
+        </div>
+        <div class="cta-trust">
+          <span>&#10003; No credit impact</span>
+          <span>&#10003; 2-minute form</span>
+          <span>&#10003; 50+ lenders</span>
+          <span>&#10003; 100% free</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo footer-logo">
+          <div class="logo-icon">&#10003;</div>
+          <span class="logo-text">credible</span>
+        </div>
+        <p>America's most trusted financial marketplace. Compare real rates from 50+ top lenders in minutes, for free.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Twitter" class="social-link">&#120143;</a>
+          <a href="#" aria-label="LinkedIn" class="social-link">in</a>
+          <a href="#" aria-label="Facebook" class="social-link">f</a>
+          <a href="#" aria-label="YouTube" class="social-link">&#9654;</a>
+        </div>
+      </div>
+
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>Loan Products</h4>
+          <ul>
+            <li><a href="#">Personal Loans</a></li>
+            <li><a href="#">Student Loan Refi</a></li>
+            <li><a href="#">Private Student Loans</a></li>
+            <li><a href="#">Mortgage</a></li>
+            <li><a href="#">Mortgage Refinancing</a></li>
+            <li><a href="#">Home Equity Loans</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Insurance</h4>
+          <ul>
+            <li><a href="#">Home Insurance</a></li>
+            <li><a href="#">Auto Insurance</a></li>
+          </ul>
+          <h4 class="footer-col-h2">Company</h4>
+          <ul>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Press &amp; Media</a></li>
+            <li><a href="#">Contact Us</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Tools &amp; Resources</h4>
+          <ul>
+            <li><a href="#">Loan Calculator</a></li>
+            <li><a href="#">Student Loan Calculator</a></li>
+            <li><a href="#">Mortgage Calculator</a></li>
+            <li><a href="#">Credit Score Guide</a></li>
+            <li><a href="#">Financial Blog</a></li>
+            <li><a href="#">FAQs</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Licenses</a></li>
+            <li><a href="#">Accessibility</a></li>
+            <li><a href="#">Cookie Policy</a></li>
+            <li><a href="#">Do Not Sell My Info</a></li>
+          </ul>
+          <div class="footer-contact">
+            <p>&#128222; 1-855-258-8518</p>
+            <p>&#9993; support@credible.com</p>
+            <p>&#128336; Mon–Fri 6AM–6PM PT</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-certs">
+        <span class="footer-cert">BBB A+</span>
+        <span class="footer-cert">SSL Secured</span>
+        <span class="footer-cert">NMLS #1681276</span>
+      </div>
+      <div class="footer-legal">
+        <p>&copy; 2025 Credible Operations, Inc. NMLS ID# 1681276. All rights reserved.</p>
+        <p>Credible is not a lender and does not make credit decisions. APR ranges shown are estimates. This is a design demonstration — all data is stored in session memory only and cleared on refresh.</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== RATE RESULTS MODAL ===== -->
+<div class="modal" id="resultsModal" role="dialog" aria-modal="true" aria-label="Rate Results">
+  <div class="modal-backdrop" data-close="resultsModal"></div>
+  <div class="modal-box modal-box-wide">
+    <button class="modal-close" data-close="resultsModal" aria-label="Close">&#10005;</button>
+    <div id="resultsContent"></div>
+  </div>
+</div>
+
+<!-- ===== AUTH MODAL ===== -->
+<div class="modal" id="authModal" role="dialog" aria-modal="true" aria-label="Sign In or Sign Up">
+  <div class="modal-backdrop" data-close="authModal"></div>
+  <div class="modal-box">
+    <button class="modal-close" data-close="authModal" aria-label="Close">&#10005;</button>
+    <div class="auth-tabs">
+      <button class="auth-tab active" data-auth-tab="login">Log In</button>
+      <button class="auth-tab" data-auth-tab="register">Sign Up</button>
+    </div>
+
+    <!-- Login Form -->
+    <form class="auth-form active" id="loginForm" data-auth-form="login" novalidate>
+      <div class="auth-header">
+        <div class="logo" style="justify-content:center;margin-bottom:.25rem">
+          <div class="logo-icon">&#10003;</div>
+          <span class="logo-text" style="font-size:1.4rem">credible</span>
+        </div>
+        <p>Welcome back — sign in to your account.</p>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email Address</label>
+        <input type="email" class="form-control" name="email" placeholder="you@example.com" required />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <div class="input-with-suffix">
+          <input type="password" class="form-control" name="password" id="loginPassword" placeholder="Enter your password" required />
+          <button type="button" class="pwd-eye" data-target="loginPassword" aria-label="Toggle password">&#128065;</button>
+        </div>
+      </div>
+      <div class="auth-meta">
+        <label class="auth-check"><input type="checkbox" name="remember" /> Remember me</label>
+        <a href="#" class="auth-link">Forgot password?</a>
+      </div>
+      <button type="submit" class="btn btn-primary btn-full">Log In</button>
+      <p class="auth-switch">Don't have an account? <a href="#" data-switch-auth="register">Create one free</a></p>
+    </form>
+
+    <!-- Register Form -->
+    <form class="auth-form" id="registerForm" data-auth-form="register" novalidate>
+      <div class="auth-header">
+        <div class="logo" style="justify-content:center;margin-bottom:.25rem">
+          <div class="logo-icon">&#10003;</div>
+          <span class="logo-text" style="font-size:1.4rem">credible</span>
+        </div>
+        <p>Create your free account in seconds.</p>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">First Name</label>
+          <input type="text" class="form-control" name="firstName" placeholder="John" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Last Name</label>
+          <input type="text" class="form-control" name="lastName" placeholder="Doe" required />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email Address</label>
+        <input type="email" class="form-control" name="email" placeholder="you@example.com" required />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <div class="input-with-suffix">
+          <input type="password" class="form-control" name="password" id="regPassword" placeholder="Min. 8 characters" required minlength="8" />
+          <button type="button" class="pwd-eye" data-target="regPassword" aria-label="Toggle password">&#128065;</button>
+        </div>
+        <div class="pwd-strength-wrap">
+          <div class="pwd-strength-bar" id="pwdStrengthBar"></div>
+          <span class="pwd-strength-label" id="pwdStrengthLabel"></span>
+        </div>
+      </div>
+      <label class="auth-check auth-check-terms">
+        <input type="checkbox" name="terms" required />
+        I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+      </label>
+      <button type="submit" class="btn btn-primary btn-full">Create Free Account</button>
+      <p class="auth-switch">Already have an account? <a href="#" data-switch-auth="login">Log in</a></p>
+    </form>
+  </div>
+</div>
+
+<!-- ===== TOAST NOTIFICATION ===== -->
+<div class="toast" id="toast" role="alert" aria-live="polite"></div>
+
+<!-- ===== BACK TO TOP ===== -->
+<button class="back-to-top" id="backToTop" aria-label="Back to top">&#8679;</button>
+
+<script src="app.js"></script>
+</body>
+</html>
