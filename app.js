@@ -1,7 +1,7 @@
-'use strict';
+ï»¿'use strict';
 
 /* ============================================================
-   SESSION STORE — cleared on every page refresh
+   SESSION STORE - cleared on every page refresh
    ============================================================ */
 var Store = {
   key: 'lightstream_session',
@@ -426,7 +426,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
-  /* ??? STEP 1 — Purpose ??? */
+  /* ??? STEP 1 - Purpose ??? */
   var purposeOpts = qsa('.purpose-opt', qs('#purposeGrid'));
   purposeOpts.forEach(function(opt) {
     opt.addEventListener('click', function() {
@@ -440,7 +440,7 @@ document.addEventListener('DOMContentLoaded', function() {
     goToStep(2);
   });
 
-  /* ??? STEP 2 — Amount ??? */
+  /* ??? STEP 2 - Amount ??? */
   var amountSlider = qs('#amountSlider');
   var amountInput  = qs('#amountInput');
   var amountDisplay= qs('#amountDisplay');
@@ -472,7 +472,7 @@ document.addEventListener('DOMContentLoaded', function() {
     goToStep(3);
   });
 
-  /* ??? STEP 3 — Term ??? */
+  /* ??? STEP 3 - Term ??? */
   var termOpts = qsa('.term-opt', qs('#termGrid'));
 
   function updateEstPayment() {
@@ -496,7 +496,7 @@ document.addEventListener('DOMContentLoaded', function() {
     goToStep(4);
   });
 
-  /* ??? STEP 4 — Personal Info ??? */
+  /* ??? STEP 4 - Personal Info ??? */
   qs('#back-4').addEventListener('click', function(){ goToStep(3, true); });
   qs('#next-4').addEventListener('click', function() {
     var fields = [
@@ -523,7 +523,7 @@ document.addEventListener('DOMContentLoaded', function() {
     goToStep(5);
   });
 
-  /* ??? STEP 5 — Co-Applicant ??? */
+  /* ??? STEP 5 - Co-Applicant ??? */
   var coChoices = qsa('[data-co]', qs('#coApplicantChoice'));
   var coFields  = qs('#coApplicantFields');
 
@@ -553,7 +553,7 @@ document.addEventListener('DOMContentLoaded', function() {
     goToStep(6);
   });
 
-  /* ??? STEP 6 — Review ??? */
+  /* ??? STEP 6 - Review ??? */
   function buildReview() {
     var loanFields = [
       {label:'Loan Purpose',  value: wiz.purpose},
@@ -561,7 +561,7 @@ document.addEventListener('DOMContentLoaded', function() {
       {label:'Loan Term',     value: Math.round(wiz.term/12) + ' Years (' + wiz.term + ' months)'},
       {label:'Credit Profile',value: wiz.credit.charAt(0).toUpperCase()+wiz.credit.slice(1)},
       {label:'Est. Payment',  value: fmtMoney(parseFloat(calcMonthly(wiz.amount,7.49,wiz.term))) + '/mo'},
-      {label:'Co-Applicant',  value: wiz.hasCoApp ? 'Yes — '+wiz.coApp.firstName+' '+wiz.coApp.lastName : 'None'}
+      {label:'Co-Applicant',  value: wiz.hasCoApp ? 'Yes - '+wiz.coApp.firstName+' '+wiz.coApp.lastName : 'None'}
     ];
     var personalFields = [
       {label:'Full Name',     value: wiz.personal.firstName+' '+wiz.personal.lastName},
@@ -611,7 +611,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 2200);
   });
 
-  /* ??? STEP 7 — Results ??? */
+  /* ??? STEP 7 - Results ??? */
   function buildResults() {
     var offers   = generateOffers({credit: wiz.credit, amount: wiz.amount, term: wiz.term});
     var container = qs('#wizOffers');
