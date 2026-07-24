@@ -49,15 +49,11 @@
     </div>
     <div class="wiz-step" data-step="5" id="step-indicator-5">
       <div class="wiz-step-num">5</div>
-      <div class="wiz-step-label">Co-Applicant</div>
-    </div>
-    <div class="wiz-step" data-step="6" id="step-indicator-6">
-      <div class="wiz-step-num">6</div>
       <div class="wiz-step-label">Review</div>
     </div>
-    <div class="wiz-step" data-step="7" id="step-indicator-7">
+    <div class="wiz-step" data-step="6" id="step-indicator-6">
       <div class="wiz-step-num">&#10003;</div>
-      <div class="wiz-step-label">Your Offers</div>
+      <div class="wiz-step-label">Done!</div>
     </div>
   </div>
 </div>
@@ -66,10 +62,10 @@
 <div class="wizard-body">
   <div class="wizard-card" id="wizardCard">
 
-    <!-- ===== PANEL 1 &mdash; Loan Purpose ===== -->
+    <!-- ===== PANEL 1 - Loan Purpose ===== -->
     <div class="wiz-panel active" id="panel-1">
       <div class="wiz-panel-header">
-        <div class="wiz-panel-tag">Step 1 of 6</div>
+        <div class="wiz-panel-tag">Step 1 of 5</div>
         <h2 class="wiz-panel-title">What is your loan for?</h2>
         <p class="wiz-panel-sub">Select the primary purpose for your LightStream loan.</p>
       </div>
@@ -87,27 +83,19 @@
           <span class="purpose-opt-icon">&#128197;</span>
           <span class="purpose-opt-label">Debt Consolidation</span>
         </div>
-        <div class="purpose-opt" data-value="Solar & Green Energy">
-          <span class="purpose-opt-icon">&#9889;</span>
-          <span class="purpose-opt-label">Solar &amp; Green</span>
-        </div>
-        <div class="purpose-opt" data-value="Swimming Pool">
-          <span class="purpose-opt-icon">&#127959;</span>
-          <span class="purpose-opt-label">Swimming Pool</span>
-        </div>
         <div class="purpose-opt" data-value="Medical / Dental">
-          <span class="purpose-opt-icon">&#127891;</span>
+          <span class="purpose-opt-icon">&#128138;</span>
           <span class="purpose-opt-label">Medical / Dental</span>
         </div>
-        <div class="purpose-opt" data-value="Wedding">
-          <span class="purpose-opt-icon">&#128141;</span>
-          <span class="purpose-opt-label">Wedding</span>
+        <div class="purpose-opt" data-value="Education">
+          <span class="purpose-opt-icon">&#127891;</span>
+          <span class="purpose-opt-label">Education</span>
         </div>
         <div class="purpose-opt" data-value="Business">
-          <span class="purpose-opt-icon">&#128187;</span>
+          <span class="purpose-opt-icon">&#128188;</span>
           <span class="purpose-opt-label">Business</span>
         </div>
-        <div class="purpose-opt" data-value="Other">
+        <div class="purpose-opt" data-value="Other Purposes">
           <span class="purpose-opt-icon">&#128176;</span>
           <span class="purpose-opt-label">Other Purposes</span>
         </div>
@@ -116,16 +104,16 @@
       <div class="wiz-nav">
         <div></div>
         <div class="wiz-nav-right">
-          <span class="wiz-progress-text">Step 1 of 6</span>
+          <span class="wiz-progress-text">Step 1 of 5</span>
           <button class="btn btn-green" id="next-1">Continue &#8594;</button>
         </div>
       </div>
     </div>
 
-    <!-- ===== PANEL 2 &mdash; Loan Amount ===== -->
+    <!-- ===== PANEL 2 - Loan Amount ===== -->
     <div class="wiz-panel" id="panel-2">
       <div class="wiz-panel-header">
-        <div class="wiz-panel-tag">Step 2 of 6</div>
+        <div class="wiz-panel-tag">Step 2 of 5</div>
         <h2 class="wiz-panel-title">How much do you need?</h2>
         <p class="wiz-panel-sub">LightStream offers loans from $5,000 to $100,000. Drag the slider or type your amount.</p>
       </div>
@@ -144,22 +132,22 @@
           <span>$</span>
           <input type="number" class="form-control" id="amountInput" value="25000" min="5000" max="100000" placeholder="25,000" />
         </div>
-        <div class="form-hint">Minimum $5,000 · Maximum $100,000</div>
+        <div class="form-hint">Minimum $5,000 &middot; Maximum $100,000</div>
       </div>
 
       <div class="wiz-nav">
         <button class="btn btn-ghost btn-sm" id="back-2">&#8592; Back</button>
         <div class="wiz-nav-right">
-          <span class="wiz-progress-text">Step 2 of 6</span>
+          <span class="wiz-progress-text">Step 2 of 5</span>
           <button class="btn btn-green" id="next-2">Continue &#8594;</button>
         </div>
       </div>
     </div>
 
-    <!-- ===== PANEL 3 &mdash; Loan Term ===== -->
+    <!-- ===== PANEL 3 - Loan Term ===== -->
     <div class="wiz-panel" id="panel-3">
       <div class="wiz-panel-header">
-        <div class="wiz-panel-tag">Step 3 of 6</div>
+        <div class="wiz-panel-tag">Step 3 of 5</div>
         <h2 class="wiz-panel-title">Choose your repayment term</h2>
         <p class="wiz-panel-sub">Longer terms mean lower monthly payments. Shorter terms save more on interest.</p>
       </div>
@@ -176,7 +164,7 @@
       <div class="est-payment" id="estPaymentBox">
         <div>
           <div class="est-payment-label">Estimated Monthly Payment</div>
-          <div class="est-payment-note">Based on starting rate of 7.49% APR</div>
+          <div class="est-payment-note">Based on fixed rate of 9.99% APR</div>
         </div>
         <div>
           <div class="est-payment-val" id="estPaymentVal">$500</div>
@@ -186,204 +174,194 @@
       <div class="wiz-nav">
         <button class="btn btn-ghost btn-sm" id="back-3">&#8592; Back</button>
         <div class="wiz-nav-right">
-          <span class="wiz-progress-text">Step 3 of 6</span>
+          <span class="wiz-progress-text">Step 3 of 5</span>
           <button class="btn btn-green" id="next-3">Continue &#8594;</button>
         </div>
       </div>
     </div>
 
-    <!-- ===== PANEL 4 &mdash; Personal Info ===== -->
+    <!-- ===== PANEL 4 - Personal Info ===== -->
     <div class="wiz-panel" id="panel-4">
       <div class="wiz-panel-header">
-        <div class="wiz-panel-tag">Step 4 of 6</div>
+        <div class="wiz-panel-tag">Step 4 of 5</div>
         <h2 class="wiz-panel-title">Tell us about yourself</h2>
-        <p class="wiz-panel-sub">We use this to find your best rate. Checking rates does not affect your credit score.</p>
+        <p class="wiz-panel-sub">Your information is encrypted and secure. Checking rates does not affect your credit score.</p>
       </div>
 
+      <!-- Name -->
       <div class="form-row">
         <div class="form-group">
-          <label class="form-label">First Name</label>
-          <input type="text" class="form-control" id="f-firstName" placeholder="John" required />
+          <label class="form-label">First Name <span class="req">*</span></label>
+          <input type="text" class="form-control" id="f-firstName" placeholder="John" required autocomplete="given-name" />
         </div>
         <div class="form-group">
-          <label class="form-label">Last Name</label>
-          <input type="text" class="form-control" id="f-lastName" placeholder="Doe" required />
+          <label class="form-label">Last Name <span class="req">*</span></label>
+          <input type="text" class="form-control" id="f-lastName" placeholder="Doe" required autocomplete="family-name" />
         </div>
       </div>
+
+      <!-- Email & Phone -->
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Email Address <span class="req">*</span></label>
+          <input type="email" class="form-control" id="f-email" placeholder="john@email.com" required autocomplete="email" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Phone Number <span class="req">*</span></label>
+          <input type="tel" class="form-control" id="f-phone" placeholder="(555) 000-0000" required autocomplete="tel" />
+        </div>
+      </div>
+
+      <!-- DOB - 3 dropdowns for easy mobile input -->
       <div class="form-group">
-        <label class="form-label">Email Address</label>
-        <input type="email" class="form-control" id="f-email" placeholder="john.doe@email.com" required />
-      </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">Date of Birth</label>
-          <input type="date" class="form-control" id="f-dob" required />
+        <label class="form-label">Date of Birth <span class="req">*</span></label>
+        <div class="dob-row">
+          <select class="form-control dob-sel" id="f-dob-month" required>
+            <option value="">Month</option>
+            <option value="01">January</option><option value="02">February</option>
+            <option value="03">March</option><option value="04">April</option>
+            <option value="05">May</option><option value="06">June</option>
+            <option value="07">July</option><option value="08">August</option>
+            <option value="09">September</option><option value="10">October</option>
+            <option value="11">November</option><option value="12">December</option>
+          </select>
+          <select class="form-control dob-sel" id="f-dob-day" required>
+            <option value="">Day</option>
+          </select>
+          <select class="form-control dob-sel" id="f-dob-year" required>
+            <option value="">Year</option>
+          </select>
         </div>
-        <div class="form-group">
-          <label class="form-label">Phone Number</label>
-          <input type="tel" class="form-control" id="f-phone" placeholder="(555) 000-0000" required />
-        </div>
+        <div class="form-hint">Must be 18 or older to apply</div>
       </div>
+
+      <!-- Employment -->
       <div class="form-group">
-        <label class="form-label">Annual Gross Income</label>
-        <div class="input-prefix">
-          <span>$</span>
-          <input type="number" class="form-control" id="f-income" placeholder="75,000" min="0" required />
-        </div>
+        <label class="form-label">Employment Status <span class="req">*</span></label>
+        <select class="form-control" id="f-employment" required>
+          <option value="">Select status...</option>
+          <option>Employed Full-Time</option>
+          <option>Employed Part-Time</option>
+          <option>Self-Employed</option>
+          <option>Retired</option>
+          <option>Not Currently Employed</option>
+        </select>
       </div>
+
+      <!-- SSN -->
+      <div class="form-group">
+        <label class="form-label">Social Security Number (SSN) <span class="req">*</span></label>
+        <div class="input-suffix">
+          <input type="password" class="form-control" id="f-ssn" placeholder="XXX-XX-XXXX" maxlength="11" required autocomplete="off" />
+          <button type="button" class="pwd-eye" data-target="f-ssn">&#128065;</button>
+        </div>
+        <div class="form-hint">&#128274; Encrypted &amp; never stored. Used only for identity verification.</div>
+      </div>
+
+      <!-- Bank & Banking Age -->
       <div class="form-row">
         <div class="form-group">
-          <label class="form-label">Employment Status</label>
-          <select class="form-control" id="f-employment" required>
-            <option value="">Select…</option>
-            <option>Employed Full-Time</option>
-            <option>Employed Part-Time</option>
-            <option>Self-Employed</option>
-            <option>Retired</option>
-            <option>Not Currently Employed</option>
+          <label class="form-label">Your Bank <span class="req">*</span></label>
+          <select class="form-control" id="f-bank" required>
+            <option value="">Select bank...</option>
+            <option>Bank of America</option>
+            <option>Chase</option>
+            <option>Wells Fargo</option>
+            <option>Citibank</option>
+            <option>US Bank</option>
+            <option>Truist Bank</option>
+            <option>Capital One</option>
+            <option>PNC Bank</option>
+            <option>TD Bank</option>
+            <option>Regions Bank</option>
+            <option>Other</option>
           </select>
         </div>
         <div class="form-group">
-          <label class="form-label">Credit Score Range</label>
-          <select class="form-control" id="f-credit" required>
-            <option value="">Select…</option>
-            <option value="excellent">Excellent (750+)</option>
-            <option value="good">Good (700&ndash;749)</option>
-            <option value="fair">Fair (660&ndash;699)</option>
-            <option value="poor">Below 660</option>
+          <label class="form-label">Years with Bank <span class="req">*</span></label>
+          <select class="form-control" id="f-banking-age" required>
+            <option value="">Select...</option>
+            <option value="lt1">Less than 1 year</option>
+            <option value="1-2">1 - 2 years</option>
+            <option value="3-5">3 - 5 years</option>
+            <option value="6-10">6 - 10 years</option>
+            <option value="10+">More than 10 years</option>
           </select>
         </div>
       </div>
+
+      <!-- Address -->
       <div class="form-group">
-        <label class="form-label">Home ZIP Code</label>
-        <input type="text" class="form-control" id="f-zip" placeholder="10001" maxlength="5" pattern="[0-9]{5}" required />
+        <label class="form-label">Street Address <span class="req">*</span></label>
+        <input type="text" class="form-control" id="f-address" placeholder="123 Main Street, Apt 4B" required autocomplete="street-address" />
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">City <span class="req">*</span></label>
+          <input type="text" class="form-control" id="f-city" placeholder="New York" required autocomplete="address-level2" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">State <span class="req">*</span></label>
+          <select class="form-control" id="f-state" required autocomplete="address-level1">
+            <option value="">State...</option>
+            <option>AL</option><option>AK</option><option>AZ</option><option>AR</option><option>CA</option>
+            <option>CO</option><option>CT</option><option>DE</option><option>FL</option><option>GA</option>
+            <option>HI</option><option>ID</option><option>IL</option><option>IN</option><option>IA</option>
+            <option>KS</option><option>KY</option><option>LA</option><option>ME</option><option>MD</option>
+            <option>MA</option><option>MI</option><option>MN</option><option>MS</option><option>MO</option>
+            <option>MT</option><option>NE</option><option>NV</option><option>NH</option><option>NJ</option>
+            <option>NM</option><option>NY</option><option>NC</option><option>ND</option><option>OH</option>
+            <option>OK</option><option>OR</option><option>PA</option><option>RI</option><option>SC</option>
+            <option>SD</option><option>TN</option><option>TX</option><option>UT</option><option>VT</option>
+            <option>VA</option><option>WA</option><option>WV</option><option>WI</option><option>WY</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">ZIP Code <span class="req">*</span></label>
+          <input type="text" class="form-control" id="f-zip" placeholder="10001" maxlength="5" pattern="[0-9]{5}" required autocomplete="postal-code" inputmode="numeric" />
+        </div>
       </div>
 
       <div class="wiz-nav">
         <button class="btn btn-ghost btn-sm" id="back-4">&#8592; Back</button>
         <div class="wiz-nav-right">
-          <span class="wiz-progress-text">Step 4 of 6</span>
+          <span class="wiz-progress-text">Step 4 of 5</span>
           <button class="btn btn-green" id="next-4">Continue &#8594;</button>
         </div>
       </div>
     </div>
 
-    <!-- ===== PANEL 5 &mdash; Co-Applicant ===== -->
+    <!-- ===== PANEL 5 - Review ===== -->
     <div class="wiz-panel" id="panel-5">
       <div class="wiz-panel-header">
-        <div class="wiz-panel-tag">Step 5 of 6</div>
-        <h2 class="wiz-panel-title">Will you have a co-applicant?</h2>
-        <p class="wiz-panel-sub">Adding a co-applicant with good credit may help you qualify for a lower rate.</p>
+        <div class="wiz-panel-tag">Step 5 of 5</div>
+        <h2 class="wiz-panel-title">Review your application</h2>
+        <p class="wiz-panel-sub">Please confirm all details are correct before we submit your application.</p>
       </div>
 
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:2rem;" id="coApplicantChoice">
-        <div class="term-opt" data-co="no" id="co-no" style="padding:1.5rem 1rem;">
-          <div style="font-size:2rem;margin-bottom:.5rem;">&#128100;</div>
-          <div class="term-opt-years" style="font-size:1rem;">Just Me</div>
-          <div class="term-opt-label">Individual application</div>
-        </div>
-        <div class="term-opt selected" data-co="yes" id="co-yes" style="padding:1.5rem 1rem;">
-          <div style="font-size:2rem;margin-bottom:.5rem;">&#128101;</div>
-          <div class="term-opt-years" style="font-size:1rem;">Add Co-Applicant</div>
-          <div class="term-opt-label">May improve your rate</div>
-        </div>
-      </div>
+      <div class="wiz-review-title">Loan Details</div>
+      <div class="wiz-review-grid" id="reviewLoanGrid"></div>
 
-      <div id="coApplicantFields">
-        <div class="form-row">
-          <div class="form-group">
-            <label class="form-label">Co-Applicant First Name</label>
-            <input type="text" class="form-control" id="co-firstName" placeholder="Jane" />
-          </div>
-          <div class="form-group">
-            <label class="form-label">Co-Applicant Last Name</label>
-            <input type="text" class="form-control" id="co-lastName" placeholder="Doe" />
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Co-Applicant Email</label>
-          <input type="email" class="form-control" id="co-email" placeholder="jane.doe@email.com" />
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label class="form-label">Relationship</label>
-            <select class="form-control" id="co-relationship">
-              <option value="">Select…</option>
-              <option>Spouse / Partner</option>
-              <option>Parent</option>
-              <option>Child</option>
-              <option>Sibling</option>
-              <option>Other</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Co-Applicant Annual Income</label>
-            <div class="input-prefix">
-              <span>$</span>
-              <input type="number" class="form-control" id="co-income" placeholder="60,000" />
-            </div>
-          </div>
-        </div>
-      </div>
+      <div class="wiz-review-title">Personal Details</div>
+      <div class="wiz-review-grid" id="reviewPersonalGrid"></div>
+
+      <label class="wiz-review-consent">
+        <input type="checkbox" id="consentCheck" />
+        By submitting, I authorize LightStream to verify my identity and process my loan application. I confirm all information is accurate and I agree to the <a href="#" style="color:var(--ls-green)">Terms &amp; Conditions</a> and <a href="#" style="color:var(--ls-green)">Privacy Policy</a>.
+      </label>
 
       <div class="wiz-nav">
         <button class="btn btn-ghost btn-sm" id="back-5">&#8592; Back</button>
         <div class="wiz-nav-right">
-          <span class="wiz-progress-text">Step 5 of 6</span>
-          <button class="btn btn-green" id="next-5">Continue &#8594;</button>
+          <button class="btn btn-green btn-lg" id="submitBtn">&#128274; Submit Application</button>
         </div>
       </div>
     </div>
 
-    <!-- ===== PANEL 6 &mdash; Review ===== -->
+    <!-- ===== PANEL 6 - Thank You ===== -->
     <div class="wiz-panel" id="panel-6">
-      <div class="wiz-panel-header">
-        <div class="wiz-panel-tag">Step 6 of 6</div>
-        <h2 class="wiz-panel-title">Review your application</h2>
-        <p class="wiz-panel-sub">Please confirm all details are correct before we check your rate.</p>
-      </div>
-
-      <div class="wiz-review-title">Loan Details</div>
-      <div class="wiz-review-grid" id="reviewLoanGrid">
+      <div class="thankyou-screen" id="thankYouScreen">
         <!-- filled by JS -->
-      </div>
-
-      <div class="wiz-review-title">Personal Details</div>
-      <div class="wiz-review-grid" id="reviewPersonalGrid">
-        <!-- filled by JS -->
-      </div>
-
-      <label class="wiz-review-consent">
-        <input type="checkbox" id="consentCheck" />
-        By submitting, I authorize LightStream to perform a soft credit inquiry to check my rate. This will <strong>not</strong> affect my credit score. I agree to the <a href="#" style="color:var(--ls-green)">Terms &amp; Conditions</a> and <a href="#" style="color:var(--ls-green)">Privacy Policy</a>.
-      </label>
-
-      <div class="wiz-nav">
-        <button class="btn btn-ghost btn-sm" id="back-6">&#8592; Back</button>
-        <div class="wiz-nav-right">
-          <button class="btn btn-green btn-lg" id="submitBtn">&#128274; Check My Rate &mdash; No Credit Impact</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- ===== PANEL 7 &mdash; Results ===== -->
-    <div class="wiz-panel" id="panel-7">
-      <div class="wiz-results-header">
-        <div class="wiz-results-icon">&#127881;</div>
-        <h2>Congratulations! Your Offers Are Ready</h2>
-        <p id="resultsSubtitle">We found personalized loan offers based on your profile. Select the best one for you.</p>
-      </div>
-
-      <div class="wiz-offers" id="wizOffers">
-        <!-- filled by JS -->
-      </div>
-
-      <p class="wiz-results-disclaimer" id="resultsDisclaimer">
-        &#128274; Rates shown are pre-qualified estimates based on your stated profile. Your final rate is confirmed after a formal application with the lender. Checking these rates did <strong>not</strong> affect your credit score. Loans provided by Truist Bank.
-      </p>
-
-      <div style="margin-top:1.5rem;text-align:center;">
-        <a href="index.html" class="btn btn-outline-green btn-sm">&#8592; Back to LightStream Home</a>
       </div>
     </div>
 

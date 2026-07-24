@@ -81,30 +81,6 @@ function validateFields(fields) {
 }
 
 /* ============================================================
-   MOCK RATE ENGINE
-   ============================================================ */
-var LENDERS = [
-  {name:'LightStream',   code:'LS', cls:'wiz-av-g', note:'Best Rate Available'},
-  {name:'SoFi',          code:'SF', cls:'wiz-av-n', note:''},
-  {name:'Marcus by GS',  code:'MK', cls:'wiz-av-t', note:''},
-  {name:'Discover',      code:'DC', cls:'wiz-av-n', note:''},
-  {name:'Upgrade',       code:'UP', cls:'wiz-av-t', note:''}
-];
-var CREDIT_MULT = {excellent:1.0, good:1.12, fair:1.28, poor:1.55};
-var BASE_APR = 6.94;
-
-function generateOffers(data) {
-  var mult   = CREDIT_MULT[data.credit] || 1.2;
-  var amount = parseFloat(data.amount) || 25000;
-  var term   = parseInt(data.term)     || 60;
-  return LENDERS.map(function(lender, i) {
-    var apr     = +(BASE_APR * mult + Math.random()*1.8*mult + i*0.95).toFixed(2);
-    var monthly = calcMonthly(amount, apr, term);
-    return {lender:lender, apr:apr, monthly:monthly, amount:amount, term:term};
-  }).sort(function(a,b){ return a.apr-b.apr; });
-}
-
-/* ============================================================
    MAIN
    ============================================================ */
 document.addEventListener('DOMContentLoaded', function() {
@@ -398,35 +374,51 @@ document.addEventListener('DOMContentLoaded', function() {
     coApp:    {}
   };
 
-  /* ??? Navigation helpers ??? */
+  /* ============================================================
+     MULTI-STEP WIZARD (apply.html only)
+     ============================================================ */
+  var wizardCard = qs('#wizardCard');
+  if (!wizardCard) return; /* not on apply page */
+
+  var FIXED_APR = 9.99;
+  var WIZ_TOTAL = 5; /* steps before thank-you */
+
+  /* Wizard state */
+  var wiz = {
+    step:    1,
+    purpose: 'Home Improvement',
+    amount:  25000,
+    term:    60,
+    personal: {}
+  };
+
+  /* Navigation helpers */
   function goToStep(n, rev) {
     var oldPanel = qs('#panel-' + wiz.step);
     var newPanel = qs('#panel-' + n);
     if (!oldPanel || !newPanel) return;
-
     oldPanel.classList.remove('active');
     newPanel.classList.remove('rev');
     if (rev) newPanel.classList.add('rev');
     newPanel.classList.add('active');
-
     wiz.step = n;
     updateStepIndicators();
+    qs('#wizardCard').scrollIntoView({behavior:'smooth', block:'start'});
     window.scrollTo({top:0, behavior:'smooth'});
   }
 
   function updateStepIndicators() {
-    for (var i=1; i<=7; i++) {
+    for (var i = 1; i <= 6; i++) {
       var ind = qs('#step-indicator-' + i);
       if (!ind) continue;
-      ind.classList.remove('active','completed');
-      if (i < wiz.step)       ind.classList.add('completed');
+      ind.classList.remove('active', 'completed');
+      if (i < wiz.step)        ind.classList.add('completed');
       else if (i === wiz.step) ind.classList.add('active');
-      /* Mark step 7 (results) complete when on it */
-      if (wiz.step === 7 && i === 7) { ind.classList.remove('active'); ind.classList.add('completed'); }
+      if (wiz.step === 6 && i === 6) { ind.classList.remove('active'); ind.classList.add('completed'); }
     }
   }
 
-  /* ??? STEP 1 - Purpose ??? */
+  /* === STEP 1 - Purpose === */
   var purposeOpts = qsa('.purpose-opt', qs('#purposeGrid'));
   purposeOpts.forEach(function(opt) {
     opt.addEventListener('click', function() {
@@ -435,50 +427,38 @@ document.addEventListener('DOMContentLoaded', function() {
       wiz.purpose = opt.dataset.value;
     });
   });
+  qs('#next-1').addEventListener('click', function() { goToStep(2); });
 
-  qs('#next-1').addEventListener('click', function() {
-    goToStep(2);
-  });
-
-  /* ??? STEP 2 - Amount ??? */
-  var amountSlider = qs('#amountSlider');
-  var amountInput  = qs('#amountInput');
-  var amountDisplay= qs('#amountDisplay');
+  /* === STEP 2 - Amount === */
+  var amountSlider  = qs('#amountSlider');
+  var amountInput   = qs('#amountInput');
+  var amountDisplay = qs('#amountDisplay');
 
   function syncAmount(val) {
-    val = Math.min(100000, Math.max(5000, parseInt(val)||5000));
+    val = Math.min(100000, Math.max(5000, parseInt(val) || 5000));
     wiz.amount = val;
     if (amountDisplay) amountDisplay.textContent = fmtMoney(val);
     if (amountSlider)  amountSlider.value = val;
     if (amountInput)   amountInput.value  = val;
     updateEstPayment();
   }
-
-  if (amountSlider) {
-    amountSlider.addEventListener('input', function(){ syncAmount(this.value); });
-  }
-  if (amountInput) {
-    amountInput.addEventListener('input', function(){ syncAmount(this.value); });
-  }
+  if (amountSlider) amountSlider.addEventListener('input', function(){ syncAmount(this.value); });
+  if (amountInput)  amountInput.addEventListener('input',  function(){ syncAmount(this.value); });
 
   qs('#back-2').addEventListener('click', function(){ goToStep(1, true); });
   qs('#next-2').addEventListener('click', function() {
-    var val = parseInt(amountInput.value)||0;
-    if (val < 5000 || val > 100000) {
-      showToast('Please enter an amount between $5,000 and $100,000.', 'error');
-      return;
-    }
+    var val = parseInt((amountInput || {}).value) || 0;
+    if (val < 5000 || val > 100000) { showToast('Please enter an amount between $5,000 and $100,000.', 'error'); return; }
     wiz.amount = val;
     goToStep(3);
   });
 
-  /* ??? STEP 3 - Term ??? */
+  /* === STEP 3 - Term === */
   var termOpts = qsa('.term-opt', qs('#termGrid'));
 
   function updateEstPayment() {
     var el = qs('#estPaymentVal'); if (!el) return;
-    var monthly = calcMonthly(wiz.amount, 7.49, wiz.term);
-    el.textContent = fmtMoney(parseFloat(monthly));
+    el.textContent = fmtMoney(parseFloat(calcMonthly(wiz.amount, FIXED_APR, wiz.term)));
   }
 
   termOpts.forEach(function(opt) {
@@ -492,176 +472,272 @@ document.addEventListener('DOMContentLoaded', function() {
   updateEstPayment();
 
   qs('#back-3').addEventListener('click', function(){ goToStep(2, true); });
-  qs('#next-3').addEventListener('click', function(){
-    goToStep(4);
-  });
+  qs('#next-3').addEventListener('click', function(){ goToStep(4); });
 
-  /* ??? STEP 4 - Personal Info ??? */
+  /* === DOB dropdowns === */
+  (function initDOB() {
+    var selDay  = qs('#f-dob-day');
+    var selYear = qs('#f-dob-year');
+    if (!selDay || !selYear) return;
+
+    /* Fill days 1-31 */
+    for (var d = 1; d <= 31; d++) {
+      var o = document.createElement('option');
+      o.value = (d < 10 ? '0' : '') + d;
+      o.textContent = d;
+      selDay.appendChild(o);
+    }
+
+    /* Fill years — current year down to 1930 */
+    var curYear = new Date().getFullYear();
+    for (var y = curYear - 18; y >= 1930; y--) {
+      var oy = document.createElement('option');
+      oy.value = y;
+      oy.textContent = y;
+      selYear.appendChild(oy);
+    }
+
+    /* Update day count when month/year changes */
+    function updateDays() {
+      var m = parseInt(qs('#f-dob-month').value) || 0;
+      var y = parseInt(selYear.value) || 2000;
+      var prev = selDay.value;
+      var max = m ? new Date(y, m, 0).getDate() : 31;
+      /* remove options beyond max */
+      while (selDay.options.length > 1) selDay.remove(1);
+      for (var dd = 1; dd <= max; dd++) {
+        var od = document.createElement('option');
+        od.value = (dd < 10 ? '0' : '') + dd;
+        od.textContent = dd;
+        selDay.appendChild(od);
+      }
+      selDay.value = prev <= max ? prev : '';
+    }
+    qs('#f-dob-month').addEventListener('change', updateDays);
+    selYear.addEventListener('change', updateDays);
+  })();
+
+  /* SSN auto-format: 123-45-6789 */
+  var ssnInput = qs('#f-ssn');
+  if (ssnInput) {
+    ssnInput.addEventListener('input', function() {
+      var raw = this.value.replace(/\D/g, '').substring(0, 9);
+      var fmt = raw;
+      if (raw.length > 5) fmt = raw.slice(0,3) + '-' + raw.slice(3,5) + '-' + raw.slice(5);
+      else if (raw.length > 3) fmt = raw.slice(0,3) + '-' + raw.slice(3);
+      this.value = fmt;
+    });
+  }
+
+  /* Phone auto-format */
+  var phoneInput = qs('#f-phone');
+  if (phoneInput) {
+    phoneInput.addEventListener('input', function() {
+      var raw = this.value.replace(/\D/g, '').substring(0, 10);
+      var fmt = raw;
+      if (raw.length > 6) fmt = '(' + raw.slice(0,3) + ') ' + raw.slice(3,6) + '-' + raw.slice(6);
+      else if (raw.length > 3) fmt = '(' + raw.slice(0,3) + ') ' + raw.slice(3);
+      else if (raw.length > 0) fmt = '(' + raw;
+      this.value = fmt;
+    });
+  }
+
+  /* === STEP 4 - Personal Info === */
   qs('#back-4').addEventListener('click', function(){ goToStep(3, true); });
   qs('#next-4').addEventListener('click', function() {
+    /* Validate DOB */
+    var dobM = qs('#f-dob-month').value;
+    var dobD = qs('#f-dob-day').value;
+    var dobY = qs('#f-dob-year').value;
+
     var fields = [
-      qs('#f-firstName'), qs('#f-lastName'), qs('#f-email'),
-      qs('#f-dob'), qs('#f-phone'), qs('#f-income'),
-      qs('#f-employment'), qs('#f-credit'), qs('#f-zip')
+      qs('#f-firstName'), qs('#f-lastName'), qs('#f-email'), qs('#f-phone'),
+      qs('#f-employment'), qs('#f-ssn'), qs('#f-bank'), qs('#f-banking-age'),
+      qs('#f-address'), qs('#f-city'), qs('#f-state'), qs('#f-zip')
     ];
-    if (!validateFields(fields)) {
-      showToast('Please fill in all required fields.', 'error');
-      return;
+    var ok = validateFields(fields);
+    if (!dobM || !dobD || !dobY) {
+      ok = false;
+      showToast('Please select your full date of birth.', 'error');
     }
-    wiz.credit = qs('#f-credit').value;
+    if (!ok) { if (dobM && dobD && dobY) showToast('Please fill in all required fields.', 'error'); return; }
+
+    /* Age check */
+    var dob = new Date(parseInt(dobY), parseInt(dobM) - 1, parseInt(dobD));
+    var age = (new Date() - dob) / (365.25 * 24 * 3600 * 1000);
+    if (age < 18) { showToast('You must be 18 or older to apply.', 'error'); return; }
+
     wiz.personal = {
-      firstName:  qs('#f-firstName').value.trim(),
-      lastName:   qs('#f-lastName').value.trim(),
-      email:      qs('#f-email').value.trim(),
-      dob:        qs('#f-dob').value,
-      phone:      qs('#f-phone').value.trim(),
-      income:     qs('#f-income').value,
-      employment: qs('#f-employment').value,
-      credit:     qs('#f-credit').value,
-      zip:        qs('#f-zip').value.trim()
+      firstName:   qs('#f-firstName').value.trim(),
+      lastName:    qs('#f-lastName').value.trim(),
+      email:       qs('#f-email').value.trim(),
+      phone:       qs('#f-phone').value.trim(),
+      dob:         dobM + '/' + dobD + '/' + dobY,
+      employment:  qs('#f-employment').value,
+      ssn:         qs('#f-ssn').value,
+      bank:        qs('#f-bank').value,
+      bankingAge:  qs('#f-banking-age').value,
+      address:     qs('#f-address').value.trim(),
+      city:        qs('#f-city').value.trim(),
+      state:       qs('#f-state').value,
+      zip:         qs('#f-zip').value.trim()
     };
+    buildReview();
     goToStep(5);
   });
 
-  /* ??? STEP 5 - Co-Applicant ??? */
-  var coChoices = qsa('[data-co]', qs('#coApplicantChoice'));
-  var coFields  = qs('#coApplicantFields');
-
-  function setCoChoice(val) {
-    wiz.hasCoApp = (val === 'yes');
-    coChoices.forEach(function(c){ c.classList.toggle('selected', c.dataset.co === val); });
-    if (coFields) coFields.style.display = wiz.hasCoApp ? 'block' : 'none';
+  /* === STEP 5 - Review === */
+  function maskSSN(ssn) {
+    var clean = (ssn || '').replace(/\D/g, '');
+    return '\u2022\u2022\u2022-\u2022\u2022-' + (clean.slice(-4) || '????');
   }
-  setCoChoice('yes'); /* default */
+  function bankingAgeLabel(val) {
+    var map = {'lt1':'Less than 1 year','1-2':'1 - 2 years','3-5':'3 - 5 years','6-10':'6 - 10 years','10+':'10+ years'};
+    return map[val] || val;
+  }
 
-  coChoices.forEach(function(c) {
-    c.addEventListener('click', function(){ setCoChoice(c.dataset.co); });
-  });
-
-  qs('#back-5').addEventListener('click', function(){ goToStep(4, true); });
-  qs('#next-5').addEventListener('click', function() {
-    if (wiz.hasCoApp) {
-      wiz.coApp = {
-        firstName:    (qs('#co-firstName')||{}).value||'',
-        lastName:     (qs('#co-lastName')||{}).value||'',
-        email:        (qs('#co-email')||{}).value||'',
-        relationship: (qs('#co-relationship')||{}).value||'',
-        income:       (qs('#co-income')||{}).value||''
-      };
-    }
-    buildReview();
-    goToStep(6);
-  });
-
-  /* ??? STEP 6 - Review ??? */
   function buildReview() {
+    var monthly = fmtMoney(parseFloat(calcMonthly(wiz.amount, FIXED_APR, wiz.term)));
     var loanFields = [
-      {label:'Loan Purpose',  value: wiz.purpose},
-      {label:'Loan Amount',   value: fmtMoney(wiz.amount)},
-      {label:'Loan Term',     value: Math.round(wiz.term/12) + ' Years (' + wiz.term + ' months)'},
-      {label:'Credit Profile',value: wiz.credit.charAt(0).toUpperCase()+wiz.credit.slice(1)},
-      {label:'Est. Payment',  value: fmtMoney(parseFloat(calcMonthly(wiz.amount,7.49,wiz.term))) + '/mo'},
-      {label:'Co-Applicant',  value: wiz.hasCoApp ? 'Yes - '+wiz.coApp.firstName+' '+wiz.coApp.lastName : 'None'}
+      {label:'Loan Purpose',    value: wiz.purpose},
+      {label:'Loan Amount',     value: fmtMoney(wiz.amount)},
+      {label:'Loan Term',       value: Math.round(wiz.term / 12) + ' Years (' + wiz.term + ' mo)'},
+      {label:'Fixed APR',       value: FIXED_APR + '%'},
+      {label:'Est. Monthly',    value: monthly + '/mo'},
+      {label:'Total Repayable', value: fmtMoney(parseFloat(calcMonthly(wiz.amount, FIXED_APR, wiz.term)) * wiz.term)}
     ];
     var personalFields = [
-      {label:'Full Name',     value: wiz.personal.firstName+' '+wiz.personal.lastName},
-      {label:'Email',         value: wiz.personal.email},
-      {label:'Date of Birth', value: wiz.personal.dob},
-      {label:'Phone',         value: wiz.personal.phone},
-      {label:'Annual Income', value: fmtMoney(wiz.personal.income)},
-      {label:'Employment',    value: wiz.personal.employment},
-      {label:'ZIP Code',      value: wiz.personal.zip}
+      {label:'Full Name',    value: wiz.personal.firstName + ' ' + wiz.personal.lastName},
+      {label:'Email',        value: wiz.personal.email},
+      {label:'Phone',        value: wiz.personal.phone},
+      {label:'Date of Birth',value: wiz.personal.dob},
+      {label:'Employment',   value: wiz.personal.employment},
+      {label:'SSN',          value: maskSSN(wiz.personal.ssn)},
+      {label:'Bank',         value: wiz.personal.bank},
+      {label:'Banking Since',value: bankingAgeLabel(wiz.personal.bankingAge)},
+      {label:'Address',      value: wiz.personal.address + ', ' + wiz.personal.city + ', ' + wiz.personal.state + ' ' + wiz.personal.zip}
     ];
-
     function renderGrid(id, fields) {
       var grid = qs('#' + id); if (!grid) return;
       grid.innerHTML = fields.map(function(f) {
-        return '<div class="wiz-review-field"><div class="wiz-rf-label">'+f.label+'</div><div class="wiz-rf-value">'+f.value+'</div></div>';
+        return '<div class="wiz-review-field"><div class="wiz-rf-label">' + f.label + '</div><div class="wiz-rf-value">' + f.value + '</div></div>';
       }).join('');
     }
     renderGrid('reviewLoanGrid', loanFields);
     renderGrid('reviewPersonalGrid', personalFields);
   }
 
-  qs('#back-6').addEventListener('click', function(){ goToStep(5, true); });
+  qs('#back-5').addEventListener('click', function(){ goToStep(4, true); });
 
   qs('#submitBtn').addEventListener('click', function() {
     var consent = qs('#consentCheck');
-    if (!consent || !consent.checked) {
-      showToast('Please agree to the terms to continue.', 'error');
-      return;
-    }
+    if (!consent || !consent.checked) { showToast('Please agree to the terms to continue.', 'error'); return; }
 
     var btn = qs('#submitBtn');
-    btn.innerHTML = '\u23F3 Checking your rate\u2026';
-    btn.disabled  = true;
+    btn.innerHTML = '&#9203; Processing your application...';
+    btn.disabled = true;
 
-    /* Save to session */
     Store.patch({ application: {
-      purpose: wiz.purpose, amount: wiz.amount, term: wiz.term,
-      credit:  wiz.credit,  personal: wiz.personal, coApp: wiz.coApp,
+      purpose: wiz.purpose, amount: wiz.amount, term: wiz.term, apr: FIXED_APR,
+      personal: Object.assign({}, wiz.personal, {ssn: '***-**-' + (wiz.personal.ssn || '').replace(/\D/g,'').slice(-4)}),
       submittedAt: new Date().toISOString()
     }});
 
     setTimeout(function() {
-      btn.innerHTML = '\u128274; Check My Rate \u2014 No Credit Impact';
-      btn.disabled  = false;
-      buildResults();
-      goToStep(7);
-    }, 2200);
+      buildThankYou();
+      goToStep(6);
+    }, 2400);
   });
 
-  /* ??? STEP 7 - Results ??? */
-  function buildResults() {
-    var offers   = generateOffers({credit: wiz.credit, amount: wiz.amount, term: wiz.term});
-    var container = qs('#wizOffers');
-    var subtitle  = qs('#resultsSubtitle');
-    if (!container) return;
+  /* === STEP 6 - Thank You === */
+  function buildThankYou() {
+    var container = qs('#thankYouScreen'); if (!container) return;
+    var monthly   = fmtMoney(parseFloat(calcMonthly(wiz.amount, FIXED_APR, wiz.term)));
+    var totalYrs  = Math.round(wiz.term / 12);
+    var refNum    = 'LS-' + Date.now().toString(36).toUpperCase().slice(-8);
 
-    if (subtitle) {
-      subtitle.textContent = offers.length + ' lenders pre-qualified you for a '+fmtMoney(wiz.amount)+
-        ' '+wiz.purpose+' loan. Select the offer that works best for you.';
-    }
+    container.innerHTML =
+      '<div class="ty-confetti" id="tyConfetti"></div>' +
+      '<div class="ty-icon-wrap"><div class="ty-check-ring"><div class="ty-check">&#10003;</div></div></div>' +
+      '<div class="ty-badge">Application Submitted!</div>' +
+      '<h2 class="ty-title">You\'re All Set, ' + wiz.personal.firstName + '!</h2>' +
+      '<p class="ty-sub">Your LightStream loan application has been received and is being reviewed. We\'ll contact you at <strong>' + wiz.personal.email + '</strong> within 1 business day.</p>' +
 
-    container.innerHTML = offers.map(function(o, i) {
-      var isBest = i === 0;
-      return '<div class="wiz-offer'+(isBest?' best':'')+'">' +
-        (isBest ? '<div class="wiz-offer-best-tag">\u2705 Best Rate &mdash; '+o.lender.note+'</div>' : '') +
-        '<div class="wiz-offer-row">' +
-          '<div class="wiz-offer-lender">' +
-            '<div class="wiz-av '+o.lender.cls+'">'+o.lender.code+'</div>' +
-            '<div>' +
-              '<strong>'+o.lender.name+'</strong>' +
-              '<span>'+wiz.purpose+' &middot; '+Math.round(o.term/12)+'yr Fixed</span>' +
-            '</div>' +
-          '</div>' +
-          '<div class="wiz-offer-rates">' +
-            '<div><div class="wiz-offer-rate-big">'+o.apr+'%</div><div class="wiz-offer-rate-sub">Fixed APR</div></div>' +
-            '<div><div class="wiz-offer-rate-big">'+fmtMoney(o.monthly)+'</div><div class="wiz-offer-rate-sub">/month</div></div>' +
-          '</div>' +
-          '<button class="btn '+(isBest?'btn-green':'btn-outline-green')+' btn-sm" onclick="selectWizOffer(\''+o.lender.name+'\',\''+o.apr+'\',\''+o.monthly+'\')">'+
-            (isBest ? 'Select Best Rate' : 'View Offer') +
-          '</button>' +
+      '<div class="ty-ref-box">' +
+        '<div class="ty-ref-label">Application Reference Number</div>' +
+        '<div class="ty-ref-num">' + refNum + '</div>' +
+      '</div>' +
+
+      '<div class="ty-loan-summary">' +
+        '<div class="ty-ls-item">' +
+          '<div class="ty-ls-icon">&#128176;</div>' +
+          '<div class="ty-ls-val">' + fmtMoney(wiz.amount) + '</div>' +
+          '<div class="ty-ls-lbl">Loan Amount</div>' +
         '</div>' +
-      '</div>';
-    }).join('');
+        '<div class="ty-ls-divider"></div>' +
+        '<div class="ty-ls-item">' +
+          '<div class="ty-ls-icon">&#128200;</div>' +
+          '<div class="ty-ls-val">' + FIXED_APR + '%</div>' +
+          '<div class="ty-ls-lbl">Fixed APR</div>' +
+        '</div>' +
+        '<div class="ty-ls-divider"></div>' +
+        '<div class="ty-ls-item">' +
+          '<div class="ty-ls-icon">&#128197;</div>' +
+          '<div class="ty-ls-val">' + monthly + '</div>' +
+          '<div class="ty-ls-lbl">Est. / Month</div>' +
+        '</div>' +
+        '<div class="ty-ls-divider"></div>' +
+        '<div class="ty-ls-item">' +
+          '<div class="ty-ls-icon">&#8987;</div>' +
+          '<div class="ty-ls-val">' + totalYrs + ' yr' + (totalYrs > 1 ? 's' : '') + '</div>' +
+          '<div class="ty-ls-lbl">Loan Term</div>' +
+        '</div>' +
+      '</div>' +
 
-    Store.patch({ lastOffers: offers.map(function(o){ return {name:o.lender.name,apr:o.apr,monthly:o.monthly}; }) });
+      '<div class="ty-steps-title">What happens next?</div>' +
+      '<div class="ty-next-steps">' +
+        '<div class="ty-ns-item"><div class="ty-ns-num">1</div><div><strong>Application Review</strong><p>Our team reviews your application, typically within 1 business day.</p></div></div>' +
+        '<div class="ty-ns-item"><div class="ty-ns-num">2</div><div><strong>Identity Verification</strong><p>We may contact you to verify a few details by email or phone.</p></div></div>' +
+        '<div class="ty-ns-item"><div class="ty-ns-num">3</div><div><strong>Approval &amp; Funding</strong><p>Once approved, funds are deposited directly into your bank account &mdash; often same business day.</p></div></div>' +
+      '</div>' +
+
+      '<div class="ty-actions">' +
+        '<a href="index.html" class="btn btn-green btn-lg">&#8592; Back to LightStream</a>' +
+        '<button class="btn btn-outline-green btn-lg" onclick="window.print()">&#128438; Save / Print</button>' +
+      '</div>' +
+
+      '<p class="ty-disclaimer">Questions? Call us at <strong>1-800-708-1373</strong> Mon&ndash;Fri 9AM&ndash;8PM ET &middot; Ref: ' + refNum + '</p>';
+
+    /* Simple confetti burst */
+    spawnConfetti(qs('#tyConfetti'));
   }
 
-  /* Purpose option click ? auto-advance */
-  purposeOpts.forEach(function(opt) {
-    opt.addEventListener('dblclick', function(){ goToStep(2); });
-  });
+  function spawnConfetti(container) {
+    if (!container) return;
+    var colors = ['#00853e','#003057','#6ee09e','#c8962a','#007a8c','#e87722'];
+    for (var i = 0; i < 60; i++) {
+      (function(i) {
+        setTimeout(function() {
+          var el = document.createElement('div');
+          el.className = 'ty-piece';
+          el.style.cssText = [
+            'left:' + (Math.random() * 100) + '%',
+            'background:' + colors[Math.floor(Math.random() * colors.length)],
+            'width:' + (6 + Math.random() * 8) + 'px',
+            'height:' + (10 + Math.random() * 8) + 'px',
+            'border-radius:' + (Math.random() > .5 ? '50%' : '2px'),
+            'animation-duration:' + (0.9 + Math.random() * 1.4) + 's',
+            'animation-delay:' + (Math.random() * 0.5) + 's'
+          ].join(';');
+          container.appendChild(el);
+          setTimeout(function(){ el.remove(); }, 2500);
+        }, i * 30);
+      })(i);
+    }
+  }
 
-  /* Init step indicators */
+  /* Init */
   updateStepIndicators();
+  updateEstPayment();
 
 }); /* end DOMContentLoaded */
-
-/* ?? SELECT OFFER (global, called from inline onclick) ?? */
-window.selectWizOffer = function(name, apr, monthly) {
-  var fmtM = '$' + Number(monthly).toLocaleString('en-US', {minimumFractionDigits:0, maximumFractionDigits:0});
-  showToast('\u2713 Selected '+name+' at '+apr+'% APR \u2014 '+fmtM+'/mo! Redirecting to final application\u2026', 'success', 5000);
-  Store.patch({selectedOffer:{name:name,apr:apr,monthly:monthly,selectedAt:new Date().toISOString()}});
-};
