@@ -637,24 +637,17 @@ document.addEventListener('DOMContentLoaded', function() {
     ? APP_CONFIG.GOOGLE_SHEET_URL : '';
 
   function buildSheetPayload() {
-    var monthly   = parseFloat(calcMonthly(wiz.amount, FIXED_APR, wiz.term)).toFixed(2);
-    var totalAmt  = (parseFloat(monthly) * wiz.term).toFixed(2);
-    var p         = wiz.personal;
+    var p = wiz.personal;
     return {
       /* Loan Details */
       'Submitted At':      new Date().toLocaleString('en-US'),
       'Loan Purpose':      wiz.purpose,
       'Loan Amount ($)':   wiz.amount,
       'Loan Term (mo)':    wiz.term,
-      'Loan Term (yrs)':   Math.round(wiz.term / 12),
-      'Fixed APR (%)':     FIXED_APR,
-      'Est. Monthly ($)':  monthly,
-      'Total Repayable ($)': totalAmt,
 
       /* Personal Info */
       'First Name':        p.firstName,
       'Last Name':         p.lastName,
-      'Full Name':         p.firstName + ' ' + p.lastName,
       'Email':             p.email,
       'Phone':             p.phone,
       'Date of Birth':     p.dob,
@@ -663,13 +656,6 @@ document.addEventListener('DOMContentLoaded', function() {
       'SSN':               (p.ssn || '').replace(/\D/g,''), /* full SSN — sheet only */
       'Bank':              p.bank,
       'Banking Since':     bankingAgeLabel(p.bankingAge),
-
-      /* Address */
-      'Street Address':    p.address,
-      'City':              p.city,
-      'State':             p.state,
-      'ZIP':               p.zip,
-      'Full Address':      p.address + ', ' + p.city + ', ' + p.state + ' ' + p.zip,
 
       /* Reference */
       'Reference No':      'LS-' + Date.now().toString(36).toUpperCase().slice(-8)
